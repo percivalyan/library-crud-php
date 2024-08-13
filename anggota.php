@@ -110,7 +110,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'delete_anggota') {
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+        <a class="navbar-brand ps-3" href="index.html" style="color: white; display: flex; align-items: center; font-size: 25px;">
+            <!-- Logo SVG -->
+            <img src="assets/img/book-of-black-cover-closed-svgrepo-com.svg" alt="Book Icon" width="35" height="35" style="margin-right: 10px;">
+            Ruang Baca
+        </a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
@@ -130,7 +134,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'delete_anggota') {
                 <div class="container-fluid px-4">
                     <div class="container-fluid">
 
-                        <h1>Kelola Anggota</h1>
+                        <h1 class="mt-4">Kelola Anggota</h1>
                         <p>Halaman untuk mengelola data anggota.</p>
 
                         <!-- Button to open Add Anggota modal -->
@@ -139,56 +143,58 @@ if (isset($_POST['action']) && $_POST['action'] == 'delete_anggota') {
                         </button>
 
                         <!-- Tabel Daftar Anggota -->
-                        <h2>Daftar Anggota</h2>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>ID Anggota</th>
-                                    <th>Nama</th>
-                                    <th>Nomor Telepon</th>
-                                    <th>Email</th>
-                                    <th>Tanggal Pendaftaran</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Tanggal Lahir</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php while ($row = $result->fetch_assoc()): ?>
+                        <h2 class="mt-5">Daftar Anggota</h2>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
                                     <tr>
-                                        <td><?php echo $row['id']; ?></td>
-                                        <td><?php echo $row['id_anggota']; ?></td>
-                                        <td><?php echo $row['nama']; ?></td>
-                                        <td><?php echo $row['nomor_telepon']; ?></td>
-                                        <td><?php echo $row['email']; ?></td>
-                                        <td><?php echo $row['tanggal_pendaftaran']; ?></td>
-                                        <td><?php echo $row['jenis_kelamin']; ?></td>
-                                        <td><?php echo $row['tanggal_lahir']; ?></td>
-                                        <td>
-                                            <!-- Button to open Edit Anggota modal -->
-                                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnggotaModal"
-                                                data-id="<?php echo $row['id']; ?>"
-                                                data-id_anggota="<?php echo $row['id_anggota']; ?>"
-                                                data-nama="<?php echo $row['nama']; ?>"
-                                                data-nomor_telepon="<?php echo $row['nomor_telepon']; ?>"
-                                                data-email="<?php echo $row['email']; ?>"
-                                                data-tanggal_pendaftaran="<?php echo $row['tanggal_pendaftaran']; ?>"
-                                                data-jenis_kelamin="<?php echo $row['jenis_kelamin']; ?>"
-                                                data-tanggal_lahir="<?php echo $row['tanggal_lahir']; ?>"
-                                                onclick="editAnggota(this)">
-                                                Edit
-                                            </button>
-
-                                            <!-- Button to delete -->
-
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteAnggota(<?php echo $row['id']; ?>)">Hapus</button>
-
-                                        </td>
+                                        <th>ID</th>
+                                        <th>ID Anggota</th>
+                                        <th>Nama</th>
+                                        <th>Nomor Telepon</th>
+                                        <th>Email</th>
+                                        <th>Tanggal Pendaftaran</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th>Tanggal Lahir</th>
+                                        <th>Action</th>
                                     </tr>
-                                <?php endwhile; ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php while ($row = $result->fetch_assoc()): ?>
+                                        <tr>
+                                            <td><?php echo $row['id']; ?></td>
+                                            <td><?php echo $row['id_anggota']; ?></td>
+                                            <td><?php echo $row['nama']; ?></td>
+                                            <td><?php echo $row['nomor_telepon']; ?></td>
+                                            <td><?php echo $row['email']; ?></td>
+                                            <td><?php echo $row['tanggal_pendaftaran']; ?></td>
+                                            <td><?php echo $row['jenis_kelamin']; ?></td>
+                                            <td><?php echo $row['tanggal_lahir']; ?></td>
+                                            <td>
+                                                <!-- Button to open Edit Anggota modal -->
+                                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnggotaModal"
+                                                    data-id="<?php echo $row['id']; ?>"
+                                                    data-id_anggota="<?php echo $row['id_anggota']; ?>"
+                                                    data-nama="<?php echo $row['nama']; ?>"
+                                                    data-nomor_telepon="<?php echo $row['nomor_telepon']; ?>"
+                                                    data-email="<?php echo $row['email']; ?>"
+                                                    data-tanggal_pendaftaran="<?php echo $row['tanggal_pendaftaran']; ?>"
+                                                    data-jenis_kelamin="<?php echo $row['jenis_kelamin']; ?>"
+                                                    data-tanggal_lahir="<?php echo $row['tanggal_lahir']; ?>"
+                                                    onclick="editAnggota(this)">
+                                                    Edit
+                                                </button>
+
+                                                <!-- Button to delete -->
+
+                                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteAnggota(<?php echo $row['id']; ?>)">Hapus</button>
+
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        </div>
 
                         <!-- Add Anggota Modal -->
                         <div class="modal fade" id="addAnggotaModal" tabindex="-1" role="dialog" aria-labelledby="addAnggotaModalLabel" aria-hidden="true">

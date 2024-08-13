@@ -107,7 +107,11 @@ $result = $conn->query("SELECT * FROM buku");
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+        <a class="navbar-brand ps-3" href="index.html" style="color: white; display: flex; align-items: center; font-size: 25px;">
+            <!-- Logo SVG -->
+            <img src="assets/img/book-of-black-cover-closed-svgrepo-com.svg" alt="Book Icon" width="35" height="35" style="margin-right: 10px;">
+            Ruang Baca
+        </a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
@@ -127,161 +131,160 @@ $result = $conn->query("SELECT * FROM buku");
                 <div class="container-fluid px-4">
 
                     <div class="container-fluid">
-                        <h1>Kelola Buku</h1>
+                        <h1 class="mt-4">Kelola Buku</h1>
                         <p>Halaman untuk mengelola data buku.</p>
 
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahBukuModal">
-                            Create Buku
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahBukuModal">
+                            Tambah Buku
                         </button>
 
                         <!-- Tabel Daftar Buku -->
                         <h2 class="mt-5">Daftar Buku</h2>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>ID Buku</th>
-                                    <th>Judul Buku</th>
-                                    <th>Penerbit</th>
-                                    <th>Tahun Terbit</th>
-                                    <th>Kategori</th>
-                                    <th>Jumlah Halaman</th>
-                                    <th>ISBN</th>
-                                    <th>Lokasi Rak</th>
-                                    <th>Jumlah Buku</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php while ($row = $result->fetch_assoc()): ?>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
                                     <tr>
-                                        <td><?php echo $row['id']; ?></td>
-                                        <td><?php echo $row['id_buku']; ?></td>
-                                        <td><?php echo $row['judul_buku']; ?></td>
-                                        <td><?php echo $row['penerbit']; ?></td>
-                                        <td><?php echo $row['tahun_terbit']; ?></td>
-                                        <td><?php echo $row['kategori']; ?></td>
-                                        <td><?php echo $row['jumlah_halaman']; ?></td>
-                                        <td><?php echo $row['isbn']; ?></td>
-                                        <td><?php echo $row['lokasi_rak']; ?></td>
-                                        <td><?php echo $row['jumlah_buku']; ?></td>
-                                        <td><?php echo $row['status']; ?></td>
-                                        <td>
-                                            <!-- Tombol Edit -->
-                                            <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal<?php echo $row['id']; ?>">Edit</button>
-                                            <!-- Tombol Hapus -->
-                                            <button class="btn btn-danger btn-sm" onclick="deleteBuku(<?php echo $row['id']; ?>)">Delete</button>
+                                        <th>ID</th>
+                                        <th>ID Buku</th>
+                                        <th>Judul Buku</th>
+                                        <th>Penerbit</th>
+                                        <th>Tahun Terbit</th>
+                                        <th>Kategori</th>
+                                        <th>Jumlah Halaman</th>
+                                        <th>ISBN</th>
+                                        <th>Lokasi Rak</th>
+                                        <th>Jumlah Buku</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($row = $result->fetch_assoc()): ?>
+                                        <tr>
+                                            <td><?php echo $row['id']; ?></td>
+                                            <td><?php echo $row['id_buku']; ?></td>
+                                            <td><?php echo $row['judul_buku']; ?></td>
+                                            <td><?php echo $row['penerbit']; ?></td>
+                                            <td><?php echo $row['tahun_terbit']; ?></td>
+                                            <td><?php echo $row['kategori']; ?></td>
+                                            <td><?php echo $row['jumlah_halaman']; ?></td>
+                                            <td><?php echo $row['isbn']; ?></td>
+                                            <td><?php echo $row['lokasi_rak']; ?></td>
+                                            <td><?php echo $row['jumlah_buku']; ?></td>
+                                            <td><?php echo $row['status']; ?></td>
+                                            <td>
+                                                <!-- Tombol Edit -->
+                                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row['id']; ?>">Edit</button>
+                                                <!-- Tombol Hapus -->
+                                                <button class="btn btn-danger btn-sm" onclick="deleteBuku(<?php echo $row['id']; ?>)">Delete</button>
 
-                                            <!-- Modal Edit -->
-                                            <div class="modal fade" id="editModal<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="editModalLabel">Edit Buku</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form id="editBukuForm<?php echo $row['id']; ?>">
-                                                                <input type="hidden" name="action" value="edit_buku">
-                                                                <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                                                <div class="form-group">
-                                                                    <label>ID Buku</label>
-                                                                    <input type="text" class="form-control" name="id_buku" value="<?php echo $row['id_buku']; ?>" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Judul Buku</label>
-                                                                    <input type="text" class="form-control" name="judul_buku" value="<?php echo $row['judul_buku']; ?>" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Penerbit</label>
-                                                                    <input type="text" class="form-control" name="penerbit" value="<?php echo $row['penerbit']; ?>" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Tahun Terbit</label>
-                                                                    <input type="number" class="form-control" name="tahun_terbit" value="<?php echo $row['tahun_terbit']; ?>" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Kategori</label>
-                                                                    <input type="text" class="form-control" name="kategori" value="<?php echo $row['kategori']; ?>" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Jumlah Halaman</label>
-                                                                    <input type="number" class="form-control" name="jumlah_halaman" value="<?php echo $row['jumlah_halaman']; ?>" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>ISBN</label>
-                                                                    <input type="text" class="form-control" name="isbn" value="<?php echo $row['isbn']; ?>" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Lokasi Rak</label>
-                                                                    <input type="text" class="form-control" name="lokasi_rak" value="<?php echo $row['lokasi_rak']; ?>" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Jumlah Buku</label>
-                                                                    <input type="number" class="form-control" name="jumlah_buku" value="<?php echo $row['jumlah_buku']; ?>" required>
-                                                                </div>
-                                                                <button type="button" class="btn btn-primary" onclick="editBuku(<?php echo $row['id']; ?>)">Simpan</button>
-                                                            </form>
+                                                <!-- Modal Edit -->
+                                                <div class="modal fade" id="editModal<?php echo $row['id']; ?>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editModalLabel">Edit Buku</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form id="editBukuForm<?php echo $row['id']; ?>">
+                                                                    <input type="hidden" name="action" value="edit_buku">
+                                                                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                                                    <div class="mb-3">
+                                                                        <label>ID Buku</label>
+                                                                        <input type="text" class="form-control" name="id_buku" value="<?php echo $row['id_buku']; ?>" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label>Judul Buku</label>
+                                                                        <input type="text" class="form-control" name="judul_buku" value="<?php echo $row['judul_buku']; ?>" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label>Penerbit</label>
+                                                                        <input type="text" class="form-control" name="penerbit" value="<?php echo $row['penerbit']; ?>" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label>Tahun Terbit</label>
+                                                                        <input type="number" class="form-control" name="tahun_terbit" value="<?php echo $row['tahun_terbit']; ?>" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label>Kategori</label>
+                                                                        <input type="text" class="form-control" name="kategori" value="<?php echo $row['kategori']; ?>" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label>Jumlah Halaman</label>
+                                                                        <input type="number" class="form-control" name="jumlah_halaman" value="<?php echo $row['jumlah_halaman']; ?>" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label>ISBN</label>
+                                                                        <input type="text" class="form-control" name="isbn" value="<?php echo $row['isbn']; ?>" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label>Lokasi Rak</label>
+                                                                        <input type="text" class="form-control" name="lokasi_rak" value="<?php echo $row['lokasi_rak']; ?>" required>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label>Jumlah Buku</label>
+                                                                        <input type="number" class="form-control" name="jumlah_buku" value="<?php echo $row['jumlah_buku']; ?>" required>
+                                                                    </div>
+                                                                    <button type="button" class="btn btn-primary" onclick="editBuku(<?php echo $row['id']; ?>)">Simpan</button>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                <?php endwhile; ?>
-                            </tbody>
-                        </table>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- Modal Tambah Buku -->
-                    <div class="modal fade" id="tambahBukuModal" tabindex="-1" role="dialog" aria-labelledby="tambahBukuLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
+                    <div class="modal fade" id="tambahBukuModal" tabindex="-1" aria-labelledby="tambahBukuLabel" aria-hidden="true">
+                        <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="tambahBukuLabel">Tambah Buku</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <form id="tambahBukuForm">
                                         <input type="hidden" name="action" value="add_buku">
-                                        <div class="form-group">
+                                        <div class="mb-3">
                                             <label>ID Buku</label>
                                             <input type="text" class="form-control" name="id_buku" required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="mb-3">
                                             <label>Judul Buku</label>
                                             <input type="text" class="form-control" name="judul_buku" required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="mb-3">
                                             <label>Penerbit</label>
                                             <input type="text" class="form-control" name="penerbit" required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="mb-3">
                                             <label>Tahun Terbit</label>
                                             <input type="number" class="form-control" name="tahun_terbit" required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="mb-3">
                                             <label>Kategori</label>
                                             <input type="text" class="form-control" name="kategori" required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="mb-3">
                                             <label>Jumlah Halaman</label>
                                             <input type="number" class="form-control" name="jumlah_halaman" required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="mb-3">
                                             <label>ISBN</label>
                                             <input type="text" class="form-control" name="isbn" required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="mb-3">
                                             <label>Lokasi Rak</label>
                                             <input type="text" class="form-control" name="lokasi_rak" required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="mb-3">
                                             <label>Jumlah Buku</label>
                                             <input type="number" class="form-control" name="jumlah_buku" required>
                                         </div>
@@ -299,7 +302,8 @@ $result = $conn->query("SELECT * FROM buku");
             </footer>
         </div>
     </div>
-    <?php include 'layouts/footer.php'; ?>
+
+    <?php include 'layouts/script.php'; ?>
     <script>
         function tambahBuku() {
             var form = $('#tambahBukuForm');

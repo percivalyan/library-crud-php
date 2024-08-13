@@ -45,8 +45,12 @@ $conn->close(); // Menutup koneksi
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+        <!-- Navbar Brand -->
+        <a class="navbar-brand ps-3" href="index.html" style="color: white; display: flex; align-items: center; font-size: 25px;">
+            <!-- Logo SVG -->
+            <img src="assets/img/book-of-black-cover-closed-svgrepo-com.svg" alt="Book Icon" width="35" height="35" style="margin-right: 10px;">
+            Ruang Baca
+        </a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
@@ -66,7 +70,7 @@ $conn->close(); // Menutup koneksi
                 <div class="container-fluid px-4">
 
                     <div class="container-fluid">
-                        <h1>Dashboard</h1>
+                        <h1 class="mt-4">Dashboard</h1>
                         <p>Selamat datang di sistem manajemen perpustakaan.</p>
                         <div class="row">
                             <div class="col-md-4">

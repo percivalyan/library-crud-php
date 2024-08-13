@@ -115,12 +115,16 @@ $buku_result = $conn->query("SELECT id, id_buku FROM buku");
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+        <a class="navbar-brand ps-3" href="index.html" style="color: white; display: flex; align-items: center; font-size: 25px;">
+            <!-- Logo SVG -->
+            <img src="assets/img/book-of-black-cover-closed-svgrepo-com.svg" alt="Book Icon" width="35" height="35" style="margin-right: 10px;">
+            Ruang Baca
+        </a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-        <div class="input-group">
+            <div class="input-group">
                 <input id="searchInput" class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                 <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
             </div>
@@ -135,7 +139,7 @@ $buku_result = $conn->query("SELECT id, id_buku FROM buku");
                 <div class="container-fluid px-4">
 
                     <div class="container-fluid">
-                        <h1>Transaksi Peminjaman dan Pengembalian</h1>
+                        <h1 class="mt-4">Transaksi Peminjaman dan Pengembalian</h1>
                         <p>Halaman untuk mengelola transaksi peminjaman dan pengembalian.</p>
 
                         <!-- Formulir Tambah Transaksi -->
@@ -172,45 +176,46 @@ $buku_result = $conn->query("SELECT id, id_buku FROM buku");
 
                         <!-- Tabel Daftar Transaksi -->
                         <h2 class="mt-5">Daftar Transaksi</h2>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Anggota</th>
-                                    <th>Buku</th>
-                                    <th>Tanggal Pinjam</th>
-                                    <th>Lama Pinjam</th>
-                                    <th>Estimasi Pengembalian</th>
-                                    <th>Status</th>
-                                    <th>Denda</th>
-                                    <th>Tanggal Pengembalian</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php while ($row = $result->fetch_assoc()): ?>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
                                     <tr>
-                                        <td><?php echo $row['id']; ?></td>
-                                        <td><?php echo $row['anggota']; ?></td>
-                                        <td><?php echo $row['buku']; ?></td>
-                                        <td><?php echo $row['tanggal_pinjam']; ?></td>
-                                        <td><?php echo $row['lama_pinjam']; ?></td>
-                                        <td><?php echo $row['estimasi_pengembalian']; ?></td>
-                                        <td><?php echo $row['status']; ?></td>
-                                        <td><?php echo $row['denda']; ?></td>
-                                        <td><?php echo $row['tanggal_pengembalian']; ?></td>
-                                        <td>
-                                            <?php if ($row['status'] == 'Sedang Dipinjam' || $row['status'] == 'Terlambat'): ?>
-                                                <button class="btn btn-success btn-sm return-btn" data-id="<?php echo $row['id']; ?>">Kembalikan</button>
-                                            <?php else: ?>
-                                                <span class="text-muted">Sudah Dikembalikan</span>
-                                            <?php endif; ?>
-                                        </td>
+                                        <th>ID</th>
+                                        <th>Anggota</th>
+                                        <th>Buku</th>
+                                        <th>Tanggal Pinjam</th>
+                                        <th>Lama Pinjam</th>
+                                        <th>Estimasi Pengembalian</th>
+                                        <th>Status</th>
+                                        <th>Denda</th>
+                                        <th>Tanggal Pengembalian</th>
+                                        <th>Aksi</th>
                                     </tr>
-                                <?php endwhile; ?>
-                            </tbody>
-                        </table>
-
+                                </thead>
+                                <tbody>
+                                    <?php while ($row = $result->fetch_assoc()): ?>
+                                        <tr>
+                                            <td><?php echo $row['id']; ?></td>
+                                            <td><?php echo $row['anggota']; ?></td>
+                                            <td><?php echo $row['buku']; ?></td>
+                                            <td><?php echo $row['tanggal_pinjam']; ?></td>
+                                            <td><?php echo $row['lama_pinjam']; ?></td>
+                                            <td><?php echo $row['estimasi_pengembalian']; ?></td>
+                                            <td><?php echo $row['status']; ?></td>
+                                            <td><?php echo $row['denda']; ?></td>
+                                            <td><?php echo $row['tanggal_pengembalian']; ?></td>
+                                            <td>
+                                                <?php if ($row['status'] == 'Sedang Dipinjam' || $row['status'] == 'Terlambat'): ?>
+                                                    <button class="btn btn-success btn-sm return-btn" data-id="<?php echo $row['id']; ?>">Kembalikan</button>
+                                                <?php else: ?>
+                                                    <span class="text-muted">Sudah Dikembalikan</span>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                 </div>
@@ -277,8 +282,8 @@ $buku_result = $conn->query("SELECT id, id_buku FROM buku");
             <?php endif; ?>
         });
 
-         // Fungsi untuk mencari
-         $(document).ready(function() {
+        // Fungsi untuk mencari
+        $(document).ready(function() {
             $('#searchInput').on('keyup', function() {
                 var value = $(this).val().toLowerCase();
                 $('table tbody tr').filter(function() {
